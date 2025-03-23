@@ -52,6 +52,191 @@
   },
   "panels": [
     {
+      "title": "Uptime (Seconds)",
+      "type": "stat",
+      "datasource": "${DS_PROMETHEUS}",
+      "gridPos": {
+        "x": 0,
+        "y": 24,
+        "w": 4,
+        "h": 6
+      },
+      "targets": [
+        {
+          "expr": "goes_receiver_uptime_seconds",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      }
+    },
+    {
+      "title": "CPU Usage %",
+      "type": "stat",
+      "datasource": "${DS_PROMETHEUS}",
+      "gridPos": {
+        "x": 4,
+        "y": 24,
+        "w": 4,
+        "h": 6
+      },
+      "targets": [
+        {
+          "expr": "goes_receiver_cpu_percent",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        },
+        "overrides": []
+      }
+    },
+    {
+      "title": "Memory Usage %",
+      "type": "stat",
+      "datasource": "${DS_PROMETHEUS}",
+      "gridPos": {
+        "x": 8,
+        "y": 24,
+        "w": 4,
+        "h": 6
+      },
+      "targets": [
+        {
+          "expr": "goes_receiver_memory_percent",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        },
+        "overrides": []
+      }
+    },
+    {
+      "title": "Disk Usage %",
+      "type": "stat",
+      "datasource": "${DS_PROMETHEUS}",
+      "gridPos": {
+        "x": 12,
+        "y": 24,
+        "w": 4,
+        "h": 6
+      },
+      "targets": [
+        {
+          "expr": "goes_receiver_disk_percent",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        },
+        "overrides": []
+      }
+    },
+    {
+      "title": "goesrecv Status",
+      "type": "stat",
+      "datasource": "${DS_PROMETHEUS}",
+      "gridPos": {
+        "x": 16,
+        "y": 24,
+        "w": 4,
+        "h": 6
+      },
+      "targets": [
+        {
+          "expr": "goes_receiver_status_goesrecv",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "Stopped"
+                },
+                "1": {
+                  "text": "Running"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      }
+    },
+    {
+      "title": "goesproc Status",
+      "type": "stat",
+      "datasource": "${DS_PROMETHEUS}",
+      "gridPos": {
+        "x": 20,
+        "y": 24,
+        "w": 4,
+        "h": 6
+      },
+      "targets": [
+        {
+          "expr": "goes_receiver_status_goesproc",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "Stopped"
+                },
+                "1": {
+                  "text": "Running"
+                }
+              }
+            }
+          ]
+        },
+        "overrides": []
+      }
+    },
+    {
+      "title": "CPU Temp (\u00b0C)",
+      "type": "stat",
+      "datasource": "${DS_PROMETHEUS}",
+      "gridPos": {
+        "x": 0,
+        "y": 30,
+        "w": 4,
+        "h": 6
+      },
+      "targets": [
+        {
+          "expr": "goes_receiver_cpu_temp_celsius",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius"
+        },
+        "overrides": []
+      }
+    },
+    {
       "title": "HRIT Packets / Second (1 Hour)",
       "type": "timeseries",
       "datasource": "${DS_PROMETHEUS}",
@@ -244,52 +429,69 @@
       }
     },
     {
-      "title": "System Info",
-      "type": "text",
-      "pluginVersion": "9.0.0",
+      "title": "HRIT Packets / Second (1 Day)",
+      "type": "timeseries",
+      "datasource": "${DS_PROMETHEUS}",
       "gridPos": {
         "x": 0,
-        "y": 24,
-        "w": 24,
-        "h": 6
+        "y": 36,
+        "w": 12,
+        "h": 8
       },
-      "options": {
-        "mode": "markdown",
-        "content": "### System Info\n\n**Uptime:** ${{uptime}} seconds  \n**CPU Usage:** ${{cpu}}%  \n**Memory Usage:** ${{memory}}%  \n**Disk Usage:** ${{disk}}%  \n**Goesrecv Status:** ${{goesrecv}}  \n**Goesproc Status:** ${{goesproc}}  \n**CPU Temp:** ${{cputemp}} \u00b0C"
-      },
-      "datasource": "${DS_PROMETHEUS}",
       "targets": [
         {
-          "expr": "goes_receiver_uptime_seconds",
-          "refId": "uptime"
+          "expr": "rate(packets_ok[1m])",
+          "legendFormat": "Packets OK",
+          "refId": "A"
         },
         {
-          "expr": "goes_receiver_cpu_percent",
-          "refId": "cpu"
-        },
-        {
-          "expr": "goes_receiver_memory_percent",
-          "refId": "memory"
-        },
-        {
-          "expr": "goes_receiver_disk_percent",
-          "refId": "disk"
-        },
-        {
-          "expr": "goes_receiver_status_goesrecv",
-          "refId": "goesrecv"
-        },
-        {
-          "expr": "goes_receiver_status_goesproc",
-          "refId": "goesproc"
-        },
-        {
-          "expr": "goes_receiver_cpu_temp_celsius",
-          "refId": "cputemp"
+          "expr": "rate(packets_dropped[1m])",
+          "legendFormat": "Packets Dropped",
+          "refId": "B"
         }
       ],
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "unit": "pps",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 2
+          }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "title": "Gain (1 Day)",
+      "type": "timeseries",
+      "datasource": "${DS_PROMETHEUS}",
+      "gridPos": {
+        "x": 12,
+        "y": 36,
+        "w": 12,
+        "h": 8
+      },
+      "targets": [
+        {
+          "expr": "gain",
+          "legendFormat": "Gain",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "unit": "none",
+          "custom": {
+            "drawStyle": "line",
+            "lineWidth": 2
+          }
+        },
         "overrides": []
       }
     }
