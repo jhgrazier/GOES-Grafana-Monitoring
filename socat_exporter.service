@@ -1,0 +1,14 @@
+# Export Stats to Grafana
+
+[Unit]
+Description=SoCat Statistics Exporter
+After=network.target
+
+[Service]
+User=root
+Group=root
+Type=simple
+ExecStart=/opt/statsd_exporter/statsd_exporter.sh
+
+[Install]
+WantedBy=multi-user.target
