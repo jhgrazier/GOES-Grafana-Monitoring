@@ -1,0 +1,14 @@
+[Unit]
+Description=Monitor Goes System Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/monitor-goes/monitor-goes.py
+WorkingDirectory=/opt/monitor-goes
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
