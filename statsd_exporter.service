@@ -1,0 +1,14 @@
+# Listen for StatsD metrics on UDP port 8125 and Expose Prometheus metrics on HTTP port 9125
+
+[Unit]
+Description=StatsD Statistics Exporter
+After=network.target
+
+[Service]
+User=root
+Group=root
+Type=simple
+ExecStart=/opt/statsd_exporter-0.28.0.linux-arm64/statsd_exporter --statsd.listen-udp=:9125 --web.listen-address=:9102
+
+[Install]
+WantedBy=multi-user.target
