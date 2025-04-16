@@ -9,6 +9,7 @@ User=root
 Group=root
 Type=simple
 ExecStart=/opt/statsd_exporter/statsd_exporter.sh
+LimitNOFILE=65535
 
 [Install]
 WantedBy=multi-user.target
